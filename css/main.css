@@ -84,3 +84,31 @@ footer a {
 }
 
 
+/* detail */
+
+.detail-box {
+  padding-top: 80px;
+  border: 1px solid #000;
+  background-color: #eee;
+  border-radius: 5px;
+  color: #343a40;
+
+}
+
+.detail-info {
+  margin: 50px 0;
+}
+
+.detail-info caption {
+  caption-side: top;
+}
+
+.detail-info td:nth-child(odd) {
+  width: 30%;
+}
+
+.studio-img {
+  width: 100%;
+  height: auto;
+}
+
