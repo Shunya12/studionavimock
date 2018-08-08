@@ -142,6 +142,39 @@ footer a {
 }
 
 
+/* 予約画面 */
 
+.reserve-body {
+  background-color: #fff;
+  padding: 30px 20px;
+  border-radius: 5px;
+}
 
+.form-title h1,.form-title p {
+  text-align: center;
+}
 
+.form-title h1 {
+  font-size: 30px;
+}
+
+.form-title p {
+  padding-bottom: 20px;
+}
+
+.submit-color {
+  background-color: #DE660D;
+  border-color: #DE660D;
+  color: white;
+  transition: all 0.4s;
+  margin: 0 auto;
+}
+
+.submit-color:hover {
+  opacity: 0.8;
+}
+
+.submit-center {
+  text-align: center;
+  margin-top: 30px;
+}
