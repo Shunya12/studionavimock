@@ -136,5 +136,7 @@
     <p>&copy; 2018 -Studio NAVI -</p>
   </footer>
 
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
