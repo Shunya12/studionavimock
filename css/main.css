@@ -72,6 +72,11 @@ footer a {
 
 .filter img {
   opacity: 0.7;
+  width: 100%;
+}
+
+.filter:hover {
+  background-color: #999;
 }
 
 /* result */
@@ -152,6 +157,7 @@ footer a {
 
 .form-title h1,.form-title p {
   text-align: center;
+  margin-bottom: 20px;
 }
 
 .form-title h1 {
@@ -165,16 +171,74 @@ footer a {
 .submit-color {
   background-color: #DE660D;
   border-color: #DE660D;
+  opacity: 0.9;
   color: white;
   transition: all 0.4s;
   margin: 0 auto;
 }
 
 .submit-color:hover {
-  opacity: 0.8;
+  opacity: 1.0;
 }
 
 .submit-center {
   text-align: center;
   margin-top: 30px;
+}
+
+/* 確認画面 */
+.check-go {
+  text-align: center;
+}
+
+.check-go button{
+  margin: 0 20px;
+}
+
+/* サンクスページ */
+
+.line-share {
+  background-color: #eee;
+  width: 50%;
+  margin: 10px auto;
+  padding-top: 20px;
+  border-radius: 10px;
+}
+
+.line-share i{
+  color: #00B900;
+}
+
+/* マイページ */
+.reserve-list {
+  background-color: #fafafa;
+  border: 1px solid #aaa;
+  padding-top: 20px;
+  border-radius: 5px;
+}
+
+.reserve-list table {
+  margin-top: 0;
+}
+
+
+.user-info {
+  margin-top: 30px
+}
+
+.user-info table{
+  margin: 10px;
+}
+
+.change-btn{
+  color: #fff!important;
+}
+
+.centered {
+  text-align: center;
+}
+
+.mypage-h2 {
+  font-size: 1.3em;
+  text-align: center;
 }

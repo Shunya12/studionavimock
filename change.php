@@ -35,28 +35,11 @@
       <div class="col-md-12">
         <div class="form-title">
           <h1>
-            ー予約情報入力画面ー
+            ー登録情報を変更するー
           </h1>
-          <p>
-            全て必須項目です
-          </p>
         </div>
       </div>
         <form>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label>希望開始日時</label>
-              <input type="text" name="date-start" class="form-control" placeholder="例）7/10 22:00">
-            </div>
-            <div class="form-group col-md-6">
-              <label>希望終了日時</label>
-              <input type="text" name="date-fin" class="form-control" placeholder="例）7/11 6:00">
-            </div>
-          </div>
-          <div class="form-group">
-            <label>利用人数</label>
-            <input type="text" name="users" class="form-control" placeholder="例）20">
-          </div>
           <div class="form-group">
             <label>名前</label>
             <input type="text" name="name" class="form-control"  placeholder="例）徳川　家家">
@@ -64,12 +47,16 @@
           <div class="form-group">
             <label>メールアドレス</label>
             <input type="email" name="email" class="form-control" placeholder="例）dancedance@studionavi.com">
-            <small class="form-text text-muted">予約の確認メールをお送りするので間違えないようにお気をつけください。</small>
+            <small class="form-text text-muted">予約時の確認メールの送信先となります。間違えないようにお気をつけください。</small>
+          </div>
+          <div class="form-group">
+            <label>パスワード</label>
+            <input type="password" name="password" class="form-control" placeholder="">
+            <small class="form-text text-muted">半角英数4文字以上</small>
           </div>
           <div class="submit-center">
-            <input type="submit" name="" value="予約確認へ進む" class="btn btn-lg submit-color">
+            <input type="submit" name="" value="変更を保存する" class="btn btn-lg submit-color">
           </div>
-            
         </form>
     </div>
   </div>
