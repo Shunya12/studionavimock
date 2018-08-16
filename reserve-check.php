@@ -39,7 +39,7 @@
           <p>
             ログインすると予約情報を確認できます。
           </p>
-          <form>
+          <form action="signin.php">
             <div class="form-group">
               <label>メールアドレス</label>
               <input type="email" name="email" class="form-control" placeholder="例）dancedance@studionavi.com">
@@ -51,7 +51,7 @@
               <small class="form-text text-muted">パスワードを忘れた場合はこちら</small>
             </div>
             <div class="submit-center">
-              <input type="submit" name="" value="予約内容を確認する" class="btn btn-lg submit-color">
+              <input type="submit" name="" value="ログインして確認する" class="btn btn-lg submit-color">
             </div>
         </form>
       </div>
@@ -60,7 +60,7 @@
 </div>
 
   <footer>
-    <a href="#">プライバシーポリシー</a>
+    <a href="privacy.php">プライバシーポリシー</a>
     <p>&copy; 2018 -Studio NAVI -</p>
   </footer>
 

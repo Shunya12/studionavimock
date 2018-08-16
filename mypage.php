@@ -90,7 +90,7 @@
                   <td>●●●●●●●●●●</td>
                 </tr>
             </table>
-          <div class="centered"><a class="btn btn-info btn-lg change-btn">登録情報の変更</a></div>
+          <div class="centered"><a href="change.php" class="btn btn-info btn-lg change-btn">登録情報の変更</a></div>
         </div>
       </div>
     </div>

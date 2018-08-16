@@ -75,7 +75,7 @@
       </div>
       <div class="col-sm-12 col-6">
         <div class="reserve-action">
-          <a href="#"><i class="far fa-calendar-alt"></i> 予約する</a>
+          <a href="reserve.php"><i class="far fa-calendar-alt"></i> 予約する</a>
         </div>
       </div>
     </div>

@@ -42,7 +42,7 @@
           </p>
         </div>
       </div>
-        <form>
+        <form action="check.php">
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>希望開始日時</label>

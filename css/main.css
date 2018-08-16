@@ -11,6 +11,16 @@ body {
   flex-direction: column;
 }
 
+a{
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover{
+  color: #fff;
+  text-decoration: none;
+}
+
 
 
 /* フッター部分 */
@@ -88,6 +98,14 @@ footer a {
 
 }
 
+.result-a {
+  color: #343a40;
+}
+
+.result-a:hover {
+  color: #343a40;
+}
+
 
 /* detail */
 
@@ -124,7 +142,7 @@ footer a {
   margin: 20px auto;
   position: relative;
   font-size: 1.4em;
-  background-color: #f0eedd;
+  background-color: #ffffff;
 }
 
 .reserve-action a{
@@ -195,6 +213,8 @@ footer a {
   margin: 0 20px;
 }
 
+
+
 /* サンクスページ */
 
 .line-share {
@@ -241,4 +261,20 @@ footer a {
 .mypage-h2 {
   font-size: 1.3em;
   text-align: center;
+}
+
+/* 地図検索 */
+#map {
+  width: 100%;
+  height: 600px;
+}
+
+.info h2 {
+margin: 0 0 .5em;
+font-size: 1.4em;
+}
+
+.info p {
+margin: 0;
+font-size: 1em;
 }

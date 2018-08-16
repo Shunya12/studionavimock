@@ -16,10 +16,10 @@
   <a class="navbar-brand mr-auto navbar-brand-center" href="#">Studio NAVI</a>
   <ul class="navbar-nav">
     <li class="nav-item d-none d-sm-block ">
-      <a class="nav-link" href="#">新規登録</a>
+      <a class="nav-link" href="signup.php">新規登録</a>
     </li>
     <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログイン</a>
+      <a class="nav-link" href="signin.php">ログイン</a>
     </li>
     <li class="nav-item d-none d-sm-block">
       <a class="nav-link" href="#">ログアウト</a>
@@ -41,7 +41,7 @@
         </a>
       </div>
       <div class="col-md-4 main-menu">
-        <a href="#">
+        <a href="area.php">
           <div class="filter">
             <img src="img/menu2.jpg">
             <p>エリアから<br>スタジオを探す</p>
@@ -49,7 +49,7 @@
         </a>
       </div>
       <div class="col-md-4 main-menu">
-        <a href="#">
+        <a href="reserve-check.php">
           <div class="filter">
             <img src="img/menu3.jpg">
             <p>予約確認</p>
@@ -68,7 +68,7 @@
           <span aria-hidden="true">&times;</span>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="result.php">
             <!-- 利用日時はこのサイトがプラットフォームとして成り立つまで利用しない -->
             <!-- <div class="form-group">
               <label for="message-text" class="col-form-label">利用日時</label>
@@ -97,7 +97,7 @@
 
 
   <footer>
-    <a href="#">プライバシーポリシー</a>
+    <a href="privacy.php">プライバシーポリシー</a>
     <p>&copy; 2018 -Studio NAVI -</p>
   </footer>
 

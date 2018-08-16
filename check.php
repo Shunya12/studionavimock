@@ -73,7 +73,7 @@
         </div>
         <div class="col-md-12 check-go">
           <button type="button" class="btn btn-secondary btn-lg">戻る</button>
-          <button type="button" class="btn btn-lg submit-color">予約する</button>
+          <button type="button" class="btn btn-lg submit-color"><a href="thanks.php">予約する</a></button>
         </div>
       </div>
     </div>

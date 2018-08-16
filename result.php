@@ -33,7 +33,7 @@
 
  <section class="main-body">
     <div class="card-deck">
-      <div class="card">
+      <a href="detail.php" class="card result-a">
         <img class="card-img-top" src="img/IMG_2105.jpg">
         <div class="card-body">
           <h5 class="card-title">〇〇スタジオ Aスタジオ</h5>
@@ -42,7 +42,7 @@
         <div class="card-footer">
           <small class="text-muted">このスタジオの詳細を見る</small>
         </div>
-      </div>
+      </a>
       <div class="card">
         <img class="card-img-top" src="img/IMG_2105.jpg">
         <div class="card-body">

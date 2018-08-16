@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title></title>
+  <title>東京のレンタルスタジオならStudioNAVI</title>
   <meta charset="utf-8">
   <meta discription="">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,6 +9,7 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="css/main.css">
+
 </head>
 <body>
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
@@ -29,44 +30,25 @@
   </ul>
   </nav>
 
-<div class="main-body container">
-  <div class="row">
-    <div class="col-md-8 offset-md-2 reserve-body">
+  <div class="container-fluid main-body">
+    <div class="row">
       <div class="col-md-12">
-        <div class="form-title">
-          <h1>
-            ーログインー
-          </h1>
-          <p>
-            メールアドレスとパスワードを入力してください
-          </p>
-        </div>
+        <div id="map"></div>
       </div>
-        <form action="mypage.php">
-          <div class="form-group">
-            <label>メールアドレス</label>
-            <input type="email" name="email" class="form-control" placeholder="例）dancedance@studionavi.com">
-          </div>
-          <div class="form-group">
-            <label>パスワード</label>
-            <input type="password" name="password" class="form-control" placeholder="">
-            <small class="form-text text-muted">- パスワードを忘れた方はこちら -</small>
-          </div>
-          <div class="submit-center">
-            <input type="submit" name="" value="ログインする" class="btn btn-lg submit-color">
-          </div>
-        </form>
     </div>
   </div>
-</div>
 
- <footer>
-    <a href="privacy.php">プライバシーポリシー</a>
+  
+
+  <footer>
+    <a href="#">プライバシーポリシー</a>
     <p>&copy; 2018 -Studio NAVI -</p>
   </footer>
 
   <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
   <script src="js/bootstrap.bundle.min.js"></script>
-
+  <script async defer src="//maps.googleapis.com/maps/api/js?key=AIzaSyAi4Vo4tOI2jSFLf-QaEL7lF2BrOzHzWsQ&callback=initMap"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
