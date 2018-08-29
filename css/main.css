@@ -126,7 +126,7 @@ footer a {
   caption-side: top;
 }
 
-.detail-info td:nth-child(odd) {
+.detail-info td:first-child {
   width: 30%;
 }
 

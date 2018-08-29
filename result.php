@@ -1,3 +1,29 @@
+<?php
+// GET送信されたらデータベースに接続してスタジオ情報を取得する
+ require('dbconnect');
+
+
+if(isset($_GET[])) {
+  if($_GET['number_of_users'] && $_GET['price'] && $_GET['area']){ // もし全部入力されていたら
+      $sql = 'SELECT * FROM `studios` WHERE `number_of_users` = ?, `price` = ?, `area` = ?';
+      $data = 
+  } else if($_GET['number_of_users'] && $GET['price']){ // もし人数と値段だけ入力されていたら
+      $sql = 'SELECT '
+  }
+}
+
+// もし人数とエリアだけ入力されていたら
+// もし値段とエリアだけ入力されていたら
+// もし人数だけ入力されていたら
+// もし値段だけ入力されていたら
+// もしエリアだけ入力されていたら
+// それ以外の場合（何も入力されていなかったら）
+
+
+// 本文中の分はrowに対して３つのカードを表示する（カードが３件表示されるたびに新たなrowを挿入する）
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,23 +37,9 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-  <a class="navbar-brand mr-auto navbar-brand-center" href="#">Studio NAVI</a>
-  <ul class="navbar-nav">
-    <li class="nav-item d-none d-sm-block ">
-      <a class="nav-link" href="#">新規登録</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログイン</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログアウト</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-    </li>
-  </ul>
-</nav>
+  <?php
+    include('header.php');
+   ?>
 
 
 
@@ -134,12 +146,8 @@
   </section>
 
 
-  <footer>
-    <a href="#">プライバシーポリシー</a>
-    <p>&copy; 2018 -Studio NAVI -</p>
-  </footer>
-
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
+   <?php
+    include('footer.php');
+   ?>
 </body>
 </html>
