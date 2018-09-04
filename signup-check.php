@@ -1,14 +1,25 @@
 <?php
   session_start();
+  require('dbconnect.php');
 
-  $name = $_SESSION['register']['name'];
-  $email = $_SESSION['register']['email'];
-  $password = $_SESSION['register']['password'];
   if(!isset($_SESSION['register'])) {
     header('Location: signup.php');
     exit();
   }
+  $name = $_SESSION['register']['name'];
+  $email = $_SESSION['register']['email'];
+  $password = $_SESSION['register']['password'];
 
+  if(!empty($_POST)) {
+    $sql = 'INSERT INTO `users` SET `name` = ?, `user_mail` = ?, `password` = ?';
+    $data = array($name, $email, password_hash($password, PASSWORD_DEFAULT));
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
+    unset($_SESSION['register']);
+    header('Location: signup-fin.php');
+    exit();
+  }
 ?>
 
 
@@ -60,13 +71,13 @@
               </tr>
           </table>
         </div>
-        <form method="POST" action="">
-          <div class="col-md-12 check-go">
+        <div class="col-md-12 check-go">
+          <form method="POST" action="">
             <a href="signup.php?action=rewrite" class="btn btn-secondary btn-lg">戻る</a>
             <input type="hidden" name="action" value="submit">
             <input type="submit" value="登録する" class="btn btn-lg submit-color">
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
   </div>

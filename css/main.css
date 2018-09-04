@@ -17,12 +17,21 @@ a{
 }
 
 a:hover{
-  color: #fff;
+  color: #ddd;
   text-decoration: none;
 }
 
 .error_message {
   color: #C70039;
+}
+
+.body-link {
+  color: #343a40;
+}
+
+.body-link:hover {
+  color: #656b71;
+  text-decoration: underline;
 }
 
 
