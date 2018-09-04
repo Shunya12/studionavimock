@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-  <a class="navbar-brand mr-auto navbar-brand-center" href="#">Studio NAVI</a>
+  <a class="navbar-brand mr-auto navbar-brand-center" href="top.php">Studio NAVI</a>
   <ul class="navbar-nav">
     <li class="nav-item d-none d-sm-block ">
       <a class="nav-link" href="signup.php">新規登録</a>
@@ -33,7 +33,7 @@
             </div> -->
             <div class="form-group">
               <label for="message-text" class="col-form-label">利用人数</label>
-              <input type="number" class="form-control" name="number_of_users" id="number-of-users" placeholder="例）10">
+              <input type="number" class="form-control" name="number_of_users" id="number-of-users" placeholder="例）10" min="1" max="100">
               <small class="form-text text-muted">必ず半角の数字で入力してください</small>
             </div>
             <div class="form-group">
@@ -45,22 +45,29 @@
                 <option value="3000">2001〜3000円</option>
                 <option value="4000">3001〜4000円</option>
                 <option value="5000">4001〜5000円</option>
-                <option value="6000">5000円以上</option>
+                <option value="5001">5000円以上</option>
               </select>
             </div>
             <div class="form-group">
               <label for="message-text" class="col-form-label">エリア</label>
               <select class="custom-select" id="inputGroupSelect02" name="area">
                 <option selected>指定しない</option>
-                <option value="shinjuku">新宿・渋谷エリア</option>
-                <option value="ikebukuro">池袋エリア</option>
-                <option value="ueno">上野・秋葉原エリア</option>
-                <option value="yotsuya">四ツ谷エリア</option>
-                <option value="nishitokyo">西東京エリア</option>
-                <option value="saitama">埼玉エリア</option>
-                <option value="chiba">千葉エリア</option>
-                <option value="kanagawa">神奈川エリア</option>
-                <option value="sonota">その他のエリア</option>
+                <option value="3">新宿エリア</option>
+                <option value="4">渋谷エリア</option>
+                <option value="5">池袋エリア</option>
+                <option value="6">上野・秋葉原エリア</option>
+                <option value="7">四ッ谷エリア</option>
+                <option value="8">中野エリア</option>
+                <option value="9">杉並エリア</option>
+                <option value="10">目黒エリア</option>
+                <option value="11">港区・中央区・千代田区エリア</option>
+                <option value="12">世田谷エリア</option>
+                <option value="13">台東区・江東区・墨田区エリア</option>
+                <option value="14">西東京・八王子エリア</option>
+                <option value="15">埼玉エリア</option>
+                <option value="16">千葉エリア</option>
+                <option value="17">神奈川エリア</option>
+                <option value="18">その他のエリア</option>
               </select>
             </div>
             <div class="submit-center">

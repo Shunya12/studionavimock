@@ -46,11 +46,11 @@
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>希望開始日時</label>
-              <input type="text" name="date-start" class="form-control" placeholder="例）7/10 22:00">
+              <input type="datetime-local" name="date-start" class="form-control" placeholder="例）7/10 22:00">
             </div>
             <div class="form-group col-md-6">
               <label>希望終了日時</label>
-              <input type="text" name="date-fin" class="form-control" placeholder="例）7/11 6:00">
+              <input type="datetime-local" name="date-fin" class="form-control" placeholder="例）7/11 6:00">
             </div>
           </div>
           <div class="form-group">

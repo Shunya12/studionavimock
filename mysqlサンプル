@@ -1,0 +1,8 @@
+
+<!-- スタジオのインサート文 -->
+INSERT INTO `studios` (`studio_id`, `studio_name`, `studio_tel`, `studio_mail`,`reserve_type`, `url`, `station`, `address`, `area_id`, `lat`, `lng`, `created`, `updated`) VALUES (NULL, 'JADE ', '03-6721-1500', 'mail', 'type', 'url', 'JR 原宿駅', '〒150-0001 東京都渋谷区神宮前4-28-25', '4', '35.669546', '139.707175', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+
+
+<!-- ルームのインサート文 -->
+INSERT INTO `rooms` (`room_id`, `studio_id`, `room_name`, `long_wide`, `capacity`, `price_per_hour`, `room_img`, `created`, `updated`) VALUES (NULL, '7', 'Bルーム', '5m　×　4.5m', '10', '3300', '', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+

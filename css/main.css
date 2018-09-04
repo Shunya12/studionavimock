@@ -21,6 +21,9 @@ a:hover{
   text-decoration: none;
 }
 
+.error_message {
+  color: #C70039;
+}
 
 
 /* フッター部分 */
@@ -277,4 +280,22 @@ font-size: 1.4em;
 .info p {
 margin: 0;
 font-size: 1em;
+}
+
+/* 会員登録確認画面 */
+
+.signup-info {
+  margin: 10px 0 50px 0;
+}
+
+.signup-info caption {
+  caption-side: top;
+}
+
+.signup-info td:first-child {
+  width: 30%;
+}
+
+.check-go a{
+  margin: 0 20px;
 }
