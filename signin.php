@@ -1,3 +1,25 @@
+<?php
+
+  require('dbconnect.php');
+  $errors = [];
+
+  if(!empty($_POST)) {
+    $email = $_POST['input_email'];
+    $password = $_POST['input_password'];
+
+    if($email == '' || $password == '') {
+      $errors['signin'] = 'blank';
+    } else {
+      $sql = 'SELECT * FROM `users` WHERE `user_mail` = ?';
+      $data = [$email];
+      $stmt = $dbh->prepare($sql);
+      $stmt->execute($data);
+      $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+  }
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,23 +33,9 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-  <a class="navbar-brand mr-auto navbar-brand-center" href="#">Studio NAVI</a>
-  <ul class="navbar-nav">
-    <li class="nav-item d-none d-sm-block ">
-      <a class="nav-link" href="#">新規登録</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログイン</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログアウト</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-    </li>
-  </ul>
-  </nav>
+  <?php
+    include('header.php');
+  ?>
 
 <div class="main-body container">
   <div class="row">
@@ -42,16 +50,19 @@
           </p>
         </div>
       </div>
-        <form action="mypage.php">
+        <form action="" method="POST">
           <div class="form-group">
             <label>メールアドレス</label>
-            <input type="email" name="email" class="form-control" placeholder="例）dancedance@studionavi.com">
+            <input type="email" name="input_email" id="email" class="form-control" placeholder="例）dancedance@studionavi.com">
           </div>
           <div class="form-group">
             <label>パスワード</label>
-            <input type="password" name="password" class="form-control" placeholder="">
+            <input type="password" name="input_password" class="form-control" id="password" placeholder="4〜16文字のパスワード">
             <small class="form-text text-muted">- パスワードを忘れた方はこちら -</small>
           </div>
+          <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
+            <p class="error_message">メールアドレスとパスワードを入力してください</p>
+          <?php endif; ?>
           <div class="submit-center">
             <input type="submit" name="" value="ログインする" class="btn btn-lg submit-color">
           </div>
@@ -60,13 +71,8 @@
   </div>
 </div>
 
- <footer>
-    <a href="privacy.php">プライバシーポリシー</a>
-    <p>&copy; 2018 -Studio NAVI -</p>
-  </footer>
-
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
-
+<?php
+  include('footer.php');
+?>
 </body>
 </html>

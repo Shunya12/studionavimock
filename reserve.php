@@ -69,7 +69,6 @@
           <div class="submit-center">
             <input type="submit" name="" value="予約確認へ進む" class="btn btn-lg submit-color">
           </div>
-            
         </form>
     </div>
   </div>

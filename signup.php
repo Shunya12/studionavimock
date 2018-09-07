@@ -104,7 +104,7 @@
             <?php elseif(isset($errors['password']) && $errors['password'] == 'length'): ?>
               <p class="error_message">パスワードは4文字以上20文字以下で入力してください</p>
             <?php endif; ?>
-            <?php if(!empty($errors)): ?>
+            <?php if(!empty($errors) && !isset($errors['password'])): ?>
               <p class="error_message">パスワードを再設定してください</p>
             <?php endif; ?>
             <small class="form-text text-muted">半角英数4文字以上20文字以下</small>
