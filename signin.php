@@ -1,11 +1,15 @@
 <?php
-
+  session_start();
   require('dbconnect.php');
+  require('functions.php');
   $errors = [];
+
+  $ref = $_SERVER['HTTP_REFERER'];
 
   if(!empty($_POST)) {
     $email = $_POST['input_email'];
     $password = $_POST['input_password'];
+    $referer = $_POST['ref'];
 
     if($email == '' || $password == '') {
       $errors['signin'] = 'blank';
@@ -15,8 +19,21 @@
       $stmt = $dbh->prepare($sql);
       $stmt->execute($data);
       $rec = $stmt->fetch(PDO::FETCH_ASSOC);
+
+      if($rec == false) {
+        $errors['signin'] = 'failed';
+      }
+    }
+
+    if(password_verify($password, $rec['password'])) {
+      $_SESSION['id'] = $rec['user_id'];
+
+      flash('signin', 'ログインしました');
+      header("Location: $referer");
+      exit();
     }
   }
+
 
 ?>
 
@@ -63,6 +80,10 @@
           <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
             <p class="error_message">メールアドレスとパスワードを入力してください</p>
           <?php endif; ?>
+          <?php if(isset($errors['signin']) && $errors['signin'] == 'failed'): ?>
+            <p class="error_message">ログインに失敗しました。入力情報を確認してください</p>
+          <?php endif; ?>
+          <input type="hidden" name="ref" value="<?= $ref ?>">
           <div class="submit-center">
             <input type="submit" name="" value="ログインする" class="btn btn-lg submit-color">
           </div>

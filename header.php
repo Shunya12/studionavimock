@@ -1,15 +1,26 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
   <a class="navbar-brand mr-auto navbar-brand-center" href="top.php">Studio NAVI</a>
+  <?php foreach(array('signin', 'signout') as $key): ?>
+      <?php if(strlen(@$flash[$key])) : ?>
+            <div class="alert alert-warning">
+                <?= $flash[$key]; ?>
+            </div>
+      <?php endif; ?>
+  <?php endforeach; ?>
   <ul class="navbar-nav">
+    <?php if(!isset($_SESSION['id'])): ?>
     <li class="nav-item d-none d-sm-block ">
       <a class="nav-link" href="signup.php">新規登録</a>
     </li>
     <li class="nav-item d-none d-sm-block">
       <a class="nav-link" href="signin.php">ログイン</a>
     </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログアウト</a>
-    </li>
+  <?php endif; ?>
+    <?php if(isset($_SESSION['id'])): ?>
+      <li class="nav-item d-none d-sm-block">
+        <a class="nav-link" href="signout.php">ログアウト</a>
+      </li>
+    <?php endif; ?>
     <li class="nav-item d-none d-sm-block">
       <a class="nav-link" href="#" data-toggle="modal" data-target="#search-studio"><i class="fas fa-search"></i></a>
     </li>

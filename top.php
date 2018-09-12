@@ -1,3 +1,12 @@
+<?php
+  session_start();
+  require('functions.php');
+  $flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : array();
+  unset($_SESSION['flash']);
+  
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +24,6 @@
   <?php
     include('header.php');
    ?>
-
   <div class="container-fluid main-body">
     <div class="row">
       <div class="col-md-4 main-menu">
