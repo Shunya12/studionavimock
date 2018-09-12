@@ -1,3 +1,24 @@
+<?php
+session_start();
+require('dbconnect.php');
+
+$studio_id = $_GET['std'];
+$room_id = $_GET['rm'];
+
+$sql = 'SELECT `rooms`.*, `studios`.* FROM `rooms` LEFT JOIN `studios` ON `rooms`.`studio_id` = `studios`.`studio_id` WHERE `studios`.`studio_id` = ? AND `room_id` = ?';
+$data = [$studio_id, $room_id];
+$stmt = $dbh->prepare($sql);
+$stmt->execute($data);
+
+$studio_rec = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// ハイフンなしの電話番号を作成（リンク用）
+$call = str_replace('-', '', $studio_rec['studio_tel']);
+// 予約タイプを変数に格納
+$rsv_type = $studio_rec['reserve_type'];
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,49 +42,98 @@
         <img src="img/IMG_2105.jpg" class="studio-img">
       </div>
       <div class="col-md-8 col-xs-12">
-        <h1>新宿マイスタジオ</h1>
-        <h2>Aルーム</h2>
+        <h1><?= $studio_rec['studio_name']; ?></h1>
+        <h2><?= $studio_rec['room_name']; ?></h2>
       </div>
       <div class="col-md-12">
         <table class="table table-striped detail-info">
           <caption>スタジオの詳細情報</caption>
             <tr>
               <td>スタジオの広さ</td>
-              <td>〇〇㎡</td>
+              <td><?= $studio_rec['long_wide']; ?></td>
             </tr>
             <tr>
               <td>目安人数</td>
-              <td>20人</td>
+              <td><?= $studio_rec['capacity'] . '人'; ?></td>
             </tr>
             <tr>
               <td>最寄駅</td>
-              <td>新宿駅</td>
+              <td><?= $studio_rec['station']; ?></td>
             </tr>
             <tr>
               <td>電話番号</td>
-              <td>03-0000-0000</td>
+              <td>
+                <a href="tel:<?= $call; ?>" class="body-link">
+                  <?= $studio_rec['studio_tel']; ?>
+                </a>
+              </td>
             </tr>
             <tr>
               <td>住所</td>
-              <td>東京都新宿区西新宿〇〇</td>
+              <td><?= $studio_rec['address']; ?></td>
             </tr>
         </table>
       </div>
       <div class="col-md-12">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3240.2870185148395!2d139.69594231509814!3d35.694553980191195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188cd63a036d8b%3A0xc711fed0636fd85b!2z5paw5a6_44Oe44Kk44K544K_44K444Kq!5e0!3m2!1sen!2sph!4v1533637111654" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe>
+        <iframe src="https://maps.google.co.jp/maps?output=embed&q=<?= $studio_rec['lat'] .','. $studio_rec['lng']; ?>" width="100%" height="400px" frameborder="0" style="border:0" allowfullscreen></iframe>
       </div>
-     </div>
-     <div class="row">
-      <div class="d-block d-md-none col-sm-12 col-6">
-        <div class="reserve-action">
-          <a href="#"><i class="fas fa-phone"></i> 電話をする</a>
+    </div>
+
+
+    <div class="row">
+      <!-- 予約方法によって表示するボタンを切り替える -->
+      <?php if($rsv_type == 'tmn' || $rsv_type == 'tm'): ?>
+        <div class="d-block d-md-none col-sm-12 col-6">
+          <div class="reserve-action">
+            <a href="tel:<?= $call; ?>"><i class="fas fa-phone"></i> 電話をする</a>
+          </div>
         </div>
-      </div>
-      <div class="col-sm-12 col-6">
-        <div class="reserve-action">
-          <a href="reserve.php"><i class="far fa-calendar-alt"></i> 予約する</a>
+        <div class="col-sm-12 col-6">
+          <div class="reserve-action">
+            <a href="reserve.php"><i class="far fa-calendar-alt"></i> 予約する</a>
+          </div>
         </div>
-      </div>
+      <?php elseif($rsv_type == 'tn'): ?>
+        <div class="d-block d-md-none col-sm-12 col-6">
+          <div class="reserve-action">
+            <a href="tel:<?= $call; ?>"><i class="fas fa-phone"></i> 電話をする</a>
+          </div>
+        </div>
+        <div class="col-sm-12 col-6">
+          <div class="reserve-action">
+            <a href="<?= $studio_rec['url']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i> 公式サイトで予約</a>
+          </div>
+        </div>
+      <?php elseif($rsv_type == 'mn'): ?>
+        <div class="col-6">
+          <div class="reserve-action">
+            <a href="reserve.php"><i class="far fa-calendar-alt"></i> 予約する</a>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="reserve-action">
+            <a href="<?= $studio_rec['url']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i> 公式サイトで予約</a>
+          </div>
+        </div>
+      <?php elseif($rsv_type == 't'): ?>
+        <div class="d-block d-md-none col-12">
+          <div class="reserve-action">
+            <a href="tel:<?= $call; ?>"><i class="fas fa-phone"></i> 電話をする</a>
+          </div>
+        </div>
+      <?php elseif($rsv_type == 'm'): ?>
+        <div class="col-12">
+          <div class="reserve-action">
+            <a href="reserve.php"><i class="far fa-calendar-alt"></i> 予約する</a>
+          </div>
+        </div>
+      <?php elseif($rsv_type == 'n'): ?>
+        <div class="col-12">
+          <div class="reserve-action">
+            <a href="<?= $studio_rec['url']; ?>" target="_blank"><i class="fas fa-external-link-alt"></i> 公式サイトで予約</a>
+          </div>
+        </div>
+      <?php endif; ?>
     </div>
   </div>
 

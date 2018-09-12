@@ -119,7 +119,7 @@
         <?php if($counter % 3 == 0): ?>
           <?php echo '<div class="card-deck">' ?>
         <?php endif; ?>
-            <a href="detail.php?id=<?= $card['studio_id']; ?>" class="card result-a">
+            <a href="detail.php?std=<?= $card['studio_id'] . '&rm=' . $card['room_id']; ?>" class="card result-a">
               <img class="card-img-top" src="img/IMG_2105.jpg">
               <div class="card-body">
                 <h5 class="card-title"><?php echo $card['studio_name'] . ' ' . $card['room_name']; ?></h5>

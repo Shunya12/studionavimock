@@ -75,7 +75,7 @@
           <div class="form-group">
             <label>パスワード</label>
             <input type="password" name="input_password" class="form-control" id="password" placeholder="4〜16文字のパスワード">
-            <small class="form-text text-muted">- パスワードを忘れた方はこちら -</small>
+            <small class="form-text text-muted"><a href="inquiry.php" class="body-link">- パスワードを忘れた方はこちら -</a></small>
           </div>
           <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
             <p class="error_message">メールアドレスとパスワードを入力してください</p>
@@ -88,6 +88,11 @@
             <input type="submit" name="" value="ログインする" class="btn btn-lg submit-color">
           </div>
         </form>
+        <div class="center-link">
+          <small>
+            <a href="signup.php" class="body-link">- 登録がお済みでない方はこちら -</a>
+          </small>
+        </div>
     </div>
   </div>
 </div>

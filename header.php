@@ -9,15 +9,15 @@
   <?php endforeach; ?>
   <ul class="navbar-nav">
     <?php if(!isset($_SESSION['id'])): ?>
-    <li class="nav-item d-none d-sm-block ">
-      <a class="nav-link" href="signup.php">新規登録</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="signin.php">ログイン</a>
-    </li>
-  <?php endif; ?>
-    <?php if(isset($_SESSION['id'])): ?>
       <li class="nav-item d-none d-sm-block">
+        <a class="nav-link" href="signup.php">新規登録</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="signin.php">ログイン</a>
+      </li>
+    <?php endif; ?>
+    <?php if(isset($_SESSION['id'])): ?>
+      <li class="nav-item">
         <a class="nav-link" href="signout.php">ログアウト</a>
       </li>
     <?php endif; ?>

@@ -35,6 +35,7 @@ a:hover{
 }
 
 
+
 /* フッター部分 */
 footer {
   background-color: #343a40;
@@ -307,4 +308,12 @@ font-size: 1em;
 
 .check-go a{
   margin: 0 20px;
+}
+
+
+/* ログインページ */
+
+.center-link {
+  text-align: center;
+  margin-top: 20px;
 }
