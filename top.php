@@ -1,9 +1,7 @@
 <?php
   session_start();
   require('functions.php');
-  $flash = isset($_SESSION['flash']) ? $_SESSION['flash'] : array();
-  unset($_SESSION['flash']);
-  
+
 
 ?>
 
@@ -42,6 +40,7 @@
           </div>
         </a>
       </div>
+      <?php if(!isset($_SESSION['id'])): ?>
       <div class="col-md-4 main-menu">
         <a href="reserve-check.php">
           <div class="filter">
@@ -50,6 +49,16 @@
           </div>
         </a>
       </div>
+      <?php else: ?>
+      <div class="col-md-4 main-menu">
+        <a href="mypage.php">
+          <div class="filter">
+            <img src="img/menu3.jpg">
+            <p>マイページ</p>
+          </div>
+        </a>
+      </div>
+    <?php endif; ?>
     </div>
   </div>
 

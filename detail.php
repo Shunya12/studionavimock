@@ -2,15 +2,34 @@
 session_start();
 require('dbconnect.php');
 
-$studio_id = $_GET['std'];
-$room_id = $_GET['rm'];
 
+// 検索から来た場合はセッションにデータを保存
+if(isset($_GET['std'])) {
+  $studio_id = $_GET['std'];
+  $room_id = $_GET['rm'];
+  $_SESSION['std'] = $studio_id;
+  $_SESSION['rm'] = $room_id;
+// 詳細ページでログインを行なった場合はセッションからスタジオ情報を取得
+} else if(isset($_GET['from']) && $_GET['from'] == 'login') {
+  $studio_id = $_SESSION['std'];
+  $room_id = $_SESSION['rm'];
+}
+
+
+
+// パラメータの数値をもとにスタジオの情報を取得する
 $sql = 'SELECT `rooms`.*, `studios`.* FROM `rooms` LEFT JOIN `studios` ON `rooms`.`studio_id` = `studios`.`studio_id` WHERE `studios`.`studio_id` = ? AND `room_id` = ?';
 $data = [$studio_id, $room_id];
 $stmt = $dbh->prepare($sql);
 $stmt->execute($data);
 
 $studio_rec = $stmt->fetch(PDO::FETCH_ASSOC);
+
+$_SESSION['reserve']['studio_name'] = $studio_rec['studio_name'];
+$_SESSION['reserve']['room_name'] = $studio_rec['room_name'];
+$_SESSION['reserve']['studio_mail'] = $studio_rec['studio_mail'];
+$_SESSION['reserve']['price_per_hour'] = $studio_rec['price_per_hour'];
+$_SESSION['reserve']['room_id'] = $_GET['rm'];
 
 // ハイフンなしの電話番号を作成（リンク用）
 $call = str_replace('-', '', $studio_rec['studio_tel']);

@@ -3,14 +3,25 @@
   require('dbconnect.php');
 
 
-
-// GET送信されたらデータベースに接続してスタジオ情報を取得する
-  if(!empty($_GET)) {
-    //文字列を整数に変換して変数に代入 ついでにエリアも代入
+// このページでログインログアウトが行われた場合の処理
+  if(isset($_GET['number_of_users'])) {
     $number_of_users = (int)$_GET['number_of_users'];
     $price = (int)$_GET['price'];
     $area = $_GET['area'];
-    $ps_check = '';
+    $_SESSION['number_of_users'] = $number_of_users;
+    $_SESSION['price'] = $price;
+    $_SESSION['area'] = $area;
+  // 検索結果ページでログインを行なった場合はセッションからスタジオ情報を取得
+  } else if(isset($_GET['from']) && $_GET['from'] == 'login') {
+    $number_of_users = $_SESSION['number_of_users'];
+    $price = $_SESSION['price'];
+    $area = $_SESSION['area'];
+  }
+
+// GET送信されたらデータベースに接続してスタジオ情報を取得する
+  if(!empty($_GET)) {
+    $sql = '';
+    $data = [];
     $sql1 = 'SELECT `rooms`.*, `studios`.*, `areas`.* FROM `rooms` LEFT JOIN `studios` ON `rooms`.`studio_id` = `studios`.`studio_id` LEFT JOIN `areas` ON `studios`.`area_id` = `areas`.`area_id` ';
     if($number_of_users != '' && $price != '指定しない' && $area != '指定しない') { // もし全部入力されていたら
         $sql2 = 'WHERE `capacity` >= ? AND `areas`.`area_id` = ?';
@@ -67,18 +78,13 @@
         $data = array($area);
     } else {
         $sql = $sql1;
-        $ps_check = 'all_blank'; //全て空欄だった際にプリペアードステートメントが必要ないため、フラグ用に変数を用意
     }
 
-      if($ps_check == 'all_blank'){
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute();
-      } else {
-        $stmt = $dbh->prepare($sql);
-        $stmt->execute($data);
-      }
+    $stmt = $dbh->prepare($sql);
+    $stmt->execute($data);
+
 // 本文中の分はrowに対して３つのカードを表示する（カードが３件表示されるたびに新たなrowを挿入する）
-      $cards = array();
+      $cards = [];
       $i = 0;
 
       while(1) {
@@ -117,12 +123,12 @@
     <?php foreach($cards as $card): ?>
         <?php $counter = $i; ?>
         <?php if($counter % 3 == 0): ?>
-          <?php echo '<div class="card-deck">' ?>
+          <?= '<div class="card-deck">' ?>
         <?php endif; ?>
             <a href="detail.php?std=<?= $card['studio_id'] . '&rm=' . $card['room_id']; ?>" class="card result-a">
               <img class="card-img-top" src="img/IMG_2105.jpg">
               <div class="card-body">
-                <h5 class="card-title"><?php echo $card['studio_name'] . ' ' . $card['room_name']; ?></h5>
+                <h5 class="card-title"><?= $card['studio_name'] . ' ' . $card['room_name']; ?></h5>
                 <p class="card-text">テキスト テキスト テキスト テキスト テキスト テキスト テキスト テキスト テキスト テキスト </p>
               </div>
               <div class="card-footer">
@@ -130,7 +136,7 @@
               </div>
             </a>
         <?php if($counter % 3 == 2): ?>
-          <?php echo '</div>' ?>
+          <?= '</div>' ?>
         <?php endif; ?>
         <?php $i++; ?>
     <?php endforeach; ?>

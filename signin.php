@@ -1,11 +1,12 @@
 <?php
   session_start();
   require('dbconnect.php');
-  require('functions.php');
   $errors = [];
 
   $ref = $_SERVER['HTTP_REFERER'];
+  $email = '';
 
+  var_dump($ref);
   if(!empty($_POST)) {
     $email = $_POST['input_email'];
     $password = $_POST['input_password'];
@@ -21,16 +22,29 @@
       $rec = $stmt->fetch(PDO::FETCH_ASSOC);
 
       if($rec == false) {
-        $errors['signin'] = 'failed';
+        $errors['signin'] = 'no-exist';
+      } else {
+        if(password_verify($password, $rec['password'])) {
+        $_SESSION['id'] = $rec['user_id'];
+
+        // リファラーのパラメータを削除して再代入することで、無限にパラメータがつく現象を回避
+        if(strpos($referer, '?') !== false){
+          $referer = strstr($referer,'?',true);
+        }
+
+        // ログインに一度失敗するとリファラーにログインが残って挙動が変なので、トップに返す
+        if($referer == 'login') {
+          header("Location: top.php" . "?from=login");
+          exit();
+        } else {
+          header("Location: $referer" . "?from=login");
+          exit();
+        }
+
+        } else {
+          $errors['signin'] = 'failed';
+        }
       }
-    }
-
-    if(password_verify($password, $rec['password'])) {
-      $_SESSION['id'] = $rec['user_id'];
-
-      flash('signin', 'ログインしました');
-      header("Location: $referer");
-      exit();
     }
   }
 
@@ -59,6 +73,9 @@
     <div class="col-md-8 offset-md-2 reserve-body">
       <div class="col-md-12">
         <div class="form-title">
+          <?php if(isset($_GET['from']) && $_GET['from'] == 'mypage'): ?>
+            <div class="alert alert-info"><p class="alert-msg">ログインすることでマイページの情報を確認することができます</p></div>
+          <?php endif; ?>
           <h1>
             ーログインー
           </h1>
@@ -70,7 +87,7 @@
         <form action="" method="POST">
           <div class="form-group">
             <label>メールアドレス</label>
-            <input type="email" name="input_email" id="email" class="form-control" placeholder="例）dancedance@studionavi.com">
+            <input type="email" name="input_email" id="email" class="form-control" placeholder="例）dancedance@studionavi.com" value="<?php echo htmlspecialchars($email); ?>">
           </div>
           <div class="form-group">
             <label>パスワード</label>
@@ -80,8 +97,11 @@
           <?php if(isset($errors['signin']) && $errors['signin'] == 'blank'): ?>
             <p class="error_message">メールアドレスとパスワードを入力してください</p>
           <?php endif; ?>
+          <?php if(isset($errors['signin']) && $errors['signin'] == 'no-exist'): ?>
+            <p class="error_message">登録されていないメールアドレスです</p>
+          <?php endif; ?>
           <?php if(isset($errors['signin']) && $errors['signin'] == 'failed'): ?>
-            <p class="error_message">ログインに失敗しました。入力情報を確認してください</p>
+            <p class="error_message">パスワードが違います</p>
           <?php endif; ?>
           <input type="hidden" name="ref" value="<?= $ref ?>">
           <div class="submit-center">

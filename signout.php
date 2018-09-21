@@ -1,8 +1,12 @@
 <?php
 session_start();
-require('functions.php');
 
 $referer = $_SERVER['HTTP_REFERER'];
+if(strpos($referer, '?') !== false){
+  $referer = strstr($referer, '?', true);
+}
+
+
 $_SESSION = [];
 
 if (ini_get("session.use_cookies")) {
@@ -17,7 +21,5 @@ session_destroy();
 
 
 
-
-flash('signout', 'ログアウトしました');
-header("Location: $referer");
+header("Location: top.php" . "?from=logout");
 exit();

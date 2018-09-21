@@ -1,3 +1,71 @@
+<?php
+session_start();
+require('dbconnect.php');
+
+
+// セッションの値を変数に格納
+if(isset($_SESSION['id'])) {
+  $user_id = $_SESSION['id'];
+} else {
+  $user_id = 0;
+}
+$studio_name = $_SESSION['reserve']['studio_name'];
+$room_name = $_SESSION['reserve']['room_name'];
+$date = $_SESSION['reserve']['date'];
+$start_time = $_SESSION['reserve']['start_time'];
+$fin_time = $_SESSION['reserve']['fin_time'];
+$users = $_SESSION['reserve']['users'];
+$user_name = $_SESSION['reserve']['user_name'];
+$user_email = $_SESSION['reserve']['user_email'];
+$studio_mail = $_SESSION['reserve']['studio_mail'];
+$use_style = $_SESSION['reserve']['use_style'];
+$price_per_hour = $_SESSION['reserve']['price_per_hour'];
+$room_id = $_SESSION['reserve']['room_id'];
+
+
+// 利用時間を生成
+$st_time = strtotime("$date $start_time");
+$fn_time = strtotime("$date $fin_time");
+$use_time = ($fn_time - $st_time) / 3600;
+
+// 料金を計算
+$price = $price_per_hour * $use_time;
+
+// 予約番号を生成｜データベースにアクセスして未来の予約に入っている数値を除いて数値を作り出して配列に詰め込む｜配列の中身にconfirm_numberが含まれていたら繰り返す。被ってなかったら終了
+$number_check = [];
+$confirm_number = mt_rand(1000, 9999);
+$check_sql = 'SELECT `reservations`.`confirm_number`, `reservations`.`date` FROM `reservations` WHERE `date` <= DATE(NOW())';
+$check_stmt = $dbh->prepare($check_sql);
+$check_stmt->execute();
+
+while(1) {
+  $rec = $check_stmt->fetch(PDO::FETCH_ASSOC);
+  if($rec == false) {
+    break;
+  }
+  $number_check[] = $rec;
+}
+
+while(in_array($confirm_number, $number_check)) {
+  $confirm_number = mt_rand(1000, 9999);
+}
+
+
+// 予約情報を送信
+if(!empty($_POST)) {
+  $sql = 'INSERT INTO `reservations` SET `room_id` = ?, `number_of_people` = ?, `use_style` = ?, `date` = ?, `start_time` = ?, `fin_time` = ?, `user_id` = ?, `conf_email` = ?, `confirm_number` = ?, `created` = NOW()';
+  $data = [$room_id, $users, $use_style, $date, $start_time, $fin_time, $user_id, $user_email, $confirm_number];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+
+  $_SESSION['reserve']['confirm_number'] = $confirm_number;
+  header('Location: thanks.php');
+  exit();
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,23 +79,7 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-  <a class="navbar-brand mr-auto navbar-brand-center" href="#">Studio NAVI</a>
-  <ul class="navbar-nav">
-    <li class="nav-item d-none d-sm-block ">
-      <a class="nav-link" href="#">新規登録</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログイン</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#">ログアウト</a>
-    </li>
-    <li class="nav-item d-none d-sm-block">
-      <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-    </li>
-  </ul>
-  </nav>
+  <?php require('header.php'); ?>
 
 <div class="main-body container">
   <div class="row">
@@ -47,46 +99,48 @@
           <img src="img/IMG_2105.jpg" class="studio-img">
         </div>
         <div class="col-md-8 col-xs-12">
-          <h1>新宿マイスタジオ</h1>
-          <h2>Aルーム</h2>
+          <h1><?= htmlspecialchars($studio_name); ?></h1>
+          <h2><?= htmlspecialchars($room_name); ?></h2>
         </div>
         <div class="col-md-12">
           <table class="table table-striped detail-info">
             <caption>ご利用情報</caption>
               <tr>
                 <td>ご利用時間</td>
-                <td>07/21/18:00 ~ 07/21/21:00</td>
+                <td><?= htmlspecialchars($date .' / '. $start_time . ' 〜 ' . $fin_time); ?></td>
               </tr>
               <tr>
                 <td>利用人数</td>
-                <td>20人</td>
+                <td><?= htmlspecialchars($users); ?></td>
               </tr>
               <tr>
-                <td>最寄駅</td>
-                <td>新宿駅</td>
+                <td>料金</td>
+                <td><?= htmlspecialchars($price); ?> 円</td>
+              </tr>
+              <tr>
+                <td>利用者</td>
+                <td><?= htmlspecialchars($user_name); ?></td>
               </tr>
               <tr>
                 <td>返信先のメールアドレス</td>
-                <td>abcd@gmail.com</td>
+                <td><?= htmlspecialchars($user_email); ?></td>
               </tr>
           </table>
         </div>
         <div class="col-md-12 check-go">
-          <button type="button" class="btn btn-secondary btn-lg">戻る</button>
-          <button type="button" class="btn btn-lg submit-color"><a href="thanks.php">予約する</a></button>
+          <form method="POST" action="">
+            <a href="reserve.php?action=rewrite" class="btn btn-secondary btn-lg">戻る</a>
+            <input type="hidden" name="action" value="submit">
+            <input type="submit" value="予約する" class="btn btn-lg submit-color">
+          </form>
         </div>
       </div>
     </div>
   </div>
 </div>
 
- <footer>
-    <a href="#">プライバシーポリシー</a>
-    <p>&copy; 2018 -Studio NAVI -</p>
-  </footer>
+  <?php require('footer.php'); ?>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

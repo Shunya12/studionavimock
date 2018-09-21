@@ -1,12 +1,7 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
   <a class="navbar-brand mr-auto navbar-brand-center" href="top.php">Studio NAVI</a>
-  <?php foreach(array('signin', 'signout') as $key): ?>
-      <?php if(strlen(@$flash[$key])) : ?>
-            <div class="alert alert-warning">
-                <?= $flash[$key]; ?>
-            </div>
-      <?php endif; ?>
-  <?php endforeach; ?>
+    <div class="alert alert-warning fls-msg-none fixed-bottom text-center">
+    </div>
   <ul class="navbar-nav">
     <?php if(!isset($_SESSION['id'])): ?>
       <li class="nav-item d-none d-sm-block">
@@ -26,6 +21,7 @@
     </li>
   </ul>
   </nav>
+
 
   <div class="modal fade" id="search-studio" tabindex="-1" role="dialog" aria-labelledby="serach-studioLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">

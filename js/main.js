@@ -65,4 +65,46 @@ function initMap() {
 }
 
 
+// フラッシュメッセージ
+// URLのパラメータを取得
+var urlParam = location.search.substring(1);
 
+// URLにパラメータが存在する場合
+if(urlParam) {
+  // 「&」が含まれている場合は「&」で分割
+  var param = urlParam.split('&');
+
+  // パラメータを格納する用の配列を用意
+  var paramArray = [];
+
+  // 用意した配列にパラメータを格納
+  for (i = 0; i < param.length; i++) {
+    var paramItem = param[i].split('=');
+    paramArray[paramItem[0]] = paramItem[1];
+  }
+
+
+  // パラメータによってメッセ〜jを出し分ける
+  if (paramArray.from == 'logout') {
+    $(document).ready(function(){
+      $('.fls-msg-none').append('<div>ログアウトしました</div>').addClass('fls-msg').removeClass('fls-msg-none').fadeOut(5000, "swing");
+    });
+  } else if(paramArray.from == 'login') {
+    $(document).ready(function(){
+      $('.fls-msg-none').append('<div>ログインしました</div>').addClass('fls-msg').removeClass('fls-msg-none').fadeOut(5000, "swing");
+    });
+  }
+}
+
+
+// 予約画面｜チェックボックスにチェックが入った際に希望利用時間をなくす
+$(function(){
+  $('input[name="night-use"]').change(function(){
+    var is = $('#night-check').is(':checked');
+    if(is){
+      $('#use-time').hide('slow');
+    } else {
+      $('#use-time').show('slow');
+    }
+  });
+});

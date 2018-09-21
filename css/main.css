@@ -34,6 +34,28 @@ a:hover{
   text-decoration: underline;
 }
 
+.table-propotion {
+  margin: 10px 0 50px 0;
+}
+
+.table-propotion caption {
+  caption-side: top;
+}
+
+.table-propotion td:first-child {
+  width: 30%;
+}
+
+/* ヘッダー部分 */
+.fls-msg-none {
+  display: none;
+}
+
+.fls-msg {
+  display: block;
+}
+
+
 
 
 /* フッター部分 */
@@ -217,6 +239,11 @@ footer a {
   margin-top: 30px;
 }
 
+.form-check {
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
 /* 確認画面 */
 .check-go {
   text-align: center;
@@ -242,12 +269,22 @@ footer a {
   color: #00B900;
 }
 
+.text-center .cf-num {
+  width: 60%;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  font-size: 2em;
+  font-weight: bold;
+  padding-bottom: 0;
+  margin: 20px auto;
+ }
 /* マイページ */
 .reserve-list {
   background-color: #fafafa;
   border: 1px solid #aaa;
   padding-top: 20px;
   border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .reserve-list table {
@@ -294,18 +331,6 @@ font-size: 1em;
 
 /* 会員登録確認画面 */
 
-.signup-info {
-  margin: 10px 0 50px 0;
-}
-
-.signup-info caption {
-  caption-side: top;
-}
-
-.signup-info td:first-child {
-  width: 30%;
-}
-
 .check-go a{
   margin: 0 20px;
 }
@@ -316,4 +341,10 @@ font-size: 1em;
 .center-link {
   text-align: center;
   margin-top: 20px;
+}
+
+.alert .alert-msg {
+  margin-top : 0;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }

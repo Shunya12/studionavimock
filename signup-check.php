@@ -11,7 +11,7 @@
   $password = $_SESSION['register']['password'];
 
   if(!empty($_POST)) {
-    $sql = 'INSERT INTO `users` SET `name` = ?, `user_mail` = ?, `password` = ?';
+    $sql = 'INSERT INTO `users` SET `name` = ?, `user_mail` = ?, `password` = ?,`created`=NOW()';
     $data = array($name, $email, password_hash($password, PASSWORD_DEFAULT));
     $stmt = $dbh->prepare($sql);
     $stmt->execute($data);
@@ -55,7 +55,7 @@
           </div>
         </div>
         <div class="col-md-12">
-          <table class="table table-striped signup-info">
+          <table class="table table-striped table-propotion">
             <caption>登録内容</caption>
               <tr>
                 <td>お名前</td>

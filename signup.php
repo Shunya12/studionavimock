@@ -1,8 +1,8 @@
 <?php
   session_start();
-  $errors = array();
+  $errors = [];
 
-
+// 戻るボタンで戻って来た際の処理
   if(isset($_GET['action']) && $_GET['action'] == 'rewrite') {
     $_POST['input_name'] = $_SESSION['register']['name'];
     $_POST['input_email'] = $_SESSION['register']['email'];
@@ -82,7 +82,7 @@
         <form method="POST" action="signup.php">
           <div class="form-group">
             <label>名前</label>
-            <input type="text" name="input_name" class="form-control"  placeholder="例）鈴木　一郎" value="<?php echo htmlspecialchars($name); ?>">
+            <input type="text" name="input_name" class="form-control"  placeholder="例）鈴木　一郎" value="<?= htmlspecialchars($name); ?>">
             <?php if(isset($errors['name']) && $errors['name'] == 'blank'): ?>
               <?php echo '<p class="error_message">名前を入力してください</p>'; ?>
             <?php endif; ?>
@@ -90,7 +90,7 @@
           </div>
           <div class="form-group">
             <label>メールアドレス</label>
-            <input type="email" name="input_email" class="form-control" placeholder="例）dancedance@studionavi.com" value="<?php echo htmlspecialchars($email); ?>">
+            <input type="email" name="input_email" class="form-control" placeholder="例）dancedance@studionavi.com" value="<?= htmlspecialchars($email); ?>">
             <?php if(isset($errors['email']) && $errors['email'] == 'blank'): ?>
               <p class="error_message">メールアドレスを入力してください</p>
             <?php endif; ?>

@@ -1,3 +1,43 @@
+<?php
+session_start();
+require('dbconnect.php');
+$errors = [];
+
+if(!empty($_POST)) {
+  $email = $_POST['email'];
+  $confirm_number = $_POST['confirm_number'];
+
+  // 空チェック
+  if($email == '') {
+    $errors['email'] = 'blank';
+  }
+  if($confirm_number == '') {
+    $errors['confirm_number'] = 'blank';
+  }
+
+  $sql = 'SELECT * FROM `reservations` WHERE `conf_email` = ? AND `confirm_number` = ?';
+  $data = [$email, $confirm_number];
+  $stmt = $dbh->prepare($sql);
+  $stmt->execute($data);
+  $reservation = $stmt->fetch(PDO::FETCH_ASSOC);
+  if(empty($reservation)) {
+    $errors['exist'] = 'no-exist';
+  }
+
+
+
+  if(empty($errors)) {
+    $_SESSION['confirm']['email'] = $email;
+    $_SESSION['confirm']['confirm_number'] = $confirm_number;
+    header('Location: confirm.php');
+    exit();
+  }
+}
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,23 +50,7 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand mr-auto navbar-brand-center" href="#">Studio NAVI</a>
-    <ul class="navbar-nav">
-      <li class="nav-item d-none d-sm-block ">
-        <a class="nav-link" href="#">新規登録</a>
-      </li>
-      <li class="nav-item d-none d-sm-block">
-        <a class="nav-link" href="#">ログイン</a>
-      </li>
-      <li class="nav-item d-none d-sm-block">
-        <a class="nav-link" href="#">ログアウト</a>
-      </li>
-      <li class="nav-item d-none d-sm-block">
-        <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-      </li>
-    </ul>
-  </nav>
+  <?php include('header.php'); ?>
 
   <div class="main-body container">
   <div class="row">
@@ -39,19 +63,30 @@
           <p>
             ログインすると予約情報を確認できます。
           </p>
-          <form action="signin.php">
+          <form action="reserve-check.php" method="POST">
             <div class="form-group">
               <label>メールアドレス</label>
               <input type="email" name="email" class="form-control" placeholder="例）dancedance@studionavi.com">
-              <small class="form-text text-muted">予約の確認メールをお送りするので間違えないようにお気をつけください。</small>
+              <small class="form-text text-muted">予約の際に利用したメールアドレスを入力してください</small>
+              <?php if(isset($errors['email']) && $errors['email'] == 'blank'): ?>
+                <p class="error_message text-left">メールアドレスを入力してください</p>
+              <?php endif; ?>
+
             </div>
             <div class="form-group">
-              <label>パスワード</label>
-              <input type="password" name="password" class="form-control"  placeholder="">
-              <small class="form-text text-muted">パスワードを忘れた場合はこちら</small>
+              <label>予約番号</label>
+              <input type="number" name="confirm_number" class="form-control"  placeholder="0000" min="1000" max="9999">
+              <small class="form-text text-muted">予約時に発行した4桁の数字を入力してください</small>
+              <?php if(isset($errors['confirm_number']) && $errors['confirm_number'] == 'blank'): ?>
+                <p class="error_message text-left">予約番号を入力してください</p>
+              <?php endif; ?>
+
             </div>
+              <?php if(isset($errors['exist']) && $errors['exist'] == 'no-exist'): ?>
+                <p class="error_message text-left">予約情報が存在しません</p>
+              <?php endif; ?>
             <div class="submit-center">
-              <input type="submit" name="" value="ログインして確認する" class="btn btn-lg submit-color">
+              <input type="submit" name="" value="予約内容を確認する" class="btn btn-lg submit-color">
             </div>
         </form>
       </div>
@@ -59,13 +94,7 @@
   </div>
 </div>
 
-  <footer>
-    <a href="privacy.php">プライバシーポリシー</a>
-    <p>&copy; 2018 -Studio NAVI -</p>
-  </footer>
-
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
+<?php include('footer.php'); ?>
 
 </body>
 </html>

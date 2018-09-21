@@ -1,3 +1,15 @@
+<?php
+session_start();
+
+
+// 予約番号の表示用
+$confirm_number = $_SESSION['reserve']['confirm_number'];
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,23 +22,7 @@
   <link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
-    <a class="navbar-brand mr-auto navbar-brand-center" href="#">Studio NAVI</a>
-    <ul class="navbar-nav">
-      <li class="nav-item d-none d-sm-block ">
-        <a class="nav-link" href="#">新規登録</a>
-      </li>
-      <li class="nav-item d-none d-sm-block">
-        <a class="nav-link" href="#">ログイン</a>
-      </li>
-      <li class="nav-item d-none d-sm-block">
-        <a class="nav-link" href="#">ログアウト</a>
-      </li>
-      <li class="nav-item d-none d-sm-block">
-        <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-      </li>
-    </ul>
-  </nav>
+  <?php require('header.php'); ?>
 
   <div class="main-body container">
   <div class="row">
@@ -37,26 +33,24 @@
             ーTHANKS!!ー
           </h1>
           <p>
-            予約が確定次第、ご登録いただいたメールアドレスに確認メールが送られます
+            スタジオに問い合わせ中です</br>入力したメールアドレスに返信が来るまでお待ちください
           </p>
           <div class="line-share">
+            <div class="text-center">
+              <h2>予約番号</h2>
+              <p class="cf-num"><?= $confirm_number ?></p>
+            </div>
             <p><i class="fab fa-line fa-6x"></i></p>
             <p>スタジオ情報をLINEで共有する</p>
           </div>
-          <p>- <a href"#">TOPに戻る</a> -</p>
+          <p>- <a class="body-link" href="top.php">TOPに戻る</a> -</p>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-  <footer>
-    <a href="#">プライバシーポリシー</a>
-    <p>&copy; 2018 -Studio NAVI -</p>
-  </footer>
-
-  <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/bootstrap.bundle.min.js"></script>
+  <?php require('footer.php'); ?>
 
 </body>
 </html>
