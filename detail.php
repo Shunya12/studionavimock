@@ -29,6 +29,7 @@ $_SESSION['reserve']['studio_name'] = $studio_rec['studio_name'];
 $_SESSION['reserve']['room_name'] = $studio_rec['room_name'];
 $_SESSION['reserve']['studio_mail'] = $studio_rec['studio_mail'];
 $_SESSION['reserve']['price_per_hour'] = $studio_rec['price_per_hour'];
+$_SESSION['reserve']['night_price'] = $studio_rec['night_price'];
 $_SESSION['reserve']['room_id'] = $_GET['rm'];
 
 // ハイフンなしの電話番号を作成（リンク用）

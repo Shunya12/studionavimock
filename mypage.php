@@ -79,8 +79,11 @@ $user_profile = $stmt->fetch(PDO::FETCH_ASSOC);
                       <td><?= $reserve['date'] . ' ' . substr($reserve['start_time'], 0, -3) . ' 〜 ' . substr($reserve['fin_time'], 0, -3); ?></td>
                     </tr>
                     <tr>
-                      <td>利用人数</td>
+                    <td>利用人数</td>
                       <td><?= $reserve['number_of_people']; ?> 人</td>
+                    </tr>
+                    <td>料金</td>
+                      <td><?= $reserve['price']; ?> 円</td>
                     </tr>
                     <tr>
                       <td>最寄駅</td>

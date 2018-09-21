@@ -132,10 +132,12 @@ while($start <= $end) {
                 <?php echo '<p class="error_message">日付を入力してください</p>'; ?>
               <?php endif; ?>
             </div>
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="night-check" name="night_use">
-              <label class="form-check-label" for="night-check">深夜レンタルをご希望の場合はこちらにチェックを入れてください</label>
-            </div>
+            <?php if($_SESSION['reserve']['night_price'] != 0): ?>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="night-check" name="night_use">
+                <label class="form-check-label" for="night-check">深夜レンタルをご希望の場合はこちらにチェックを入れてください</label>
+              </div>
+            <?php endif; ?>
             <div class="form-row" id="use-time">
               <div class="form-group col-md-6">
                 <label>希望開始時間</label>

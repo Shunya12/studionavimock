@@ -99,7 +99,7 @@ if(urlParam) {
 
 // 予約画面｜チェックボックスにチェックが入った際に希望利用時間をなくす
 $(function(){
-  $('input[name="night-use"]').change(function(){
+  $('input[name="night_use"]').change(function(){
     var is = $('#night-check').is(':checked');
     if(is){
       $('#use-time').hide('slow');

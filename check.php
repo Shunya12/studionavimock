@@ -20,6 +20,7 @@ $user_email = $_SESSION['reserve']['user_email'];
 $studio_mail = $_SESSION['reserve']['studio_mail'];
 $use_style = $_SESSION['reserve']['use_style'];
 $price_per_hour = $_SESSION['reserve']['price_per_hour'];
+$night_price = $_SESSION['reserve']['night_price'];
 $room_id = $_SESSION['reserve']['room_id'];
 
 
@@ -28,8 +29,14 @@ $st_time = strtotime("$date $start_time");
 $fn_time = strtotime("$date $fin_time");
 $use_time = ($fn_time - $st_time) / 3600;
 
-// 料金を計算
-$price = $price_per_hour * $use_time;
+// 料金を計算(デイユースなら料金を計算、深夜なら深夜料金をそのまま代入)
+if($use_style == 'day_use'){
+  $price = intval($price_per_hour * $use_time);
+} else {
+  $price = $night_price;
+}
+
+
 
 // 予約番号を生成｜データベースにアクセスして未来の予約に入っている数値を除いて数値を作り出して配列に詰め込む｜配列の中身にconfirm_numberが含まれていたら繰り返す。被ってなかったら終了
 $number_check = [];
@@ -53,8 +60,8 @@ while(in_array($confirm_number, $number_check)) {
 
 // 予約情報を送信
 if(!empty($_POST)) {
-  $sql = 'INSERT INTO `reservations` SET `room_id` = ?, `number_of_people` = ?, `use_style` = ?, `date` = ?, `start_time` = ?, `fin_time` = ?, `user_id` = ?, `conf_email` = ?, `confirm_number` = ?, `created` = NOW()';
-  $data = [$room_id, $users, $use_style, $date, $start_time, $fin_time, $user_id, $user_email, $confirm_number];
+  $sql = 'INSERT INTO `reservations` SET `room_id` = ?, `number_of_people` = ?, `use_style` = ?, `date` = ?, `start_time` = ?, `fin_time` = ?, `user_id` = ?, `conf_email` = ?, `confirm_number` = ?, `price`= ?, `created` = NOW()';
+  $data = [$room_id, $users, $use_style, $date, $start_time, $fin_time, $user_id, $user_email, $confirm_number, $price];
   $stmt = $dbh->prepare($sql);
   $stmt->execute($data);
 
@@ -107,7 +114,11 @@ if(!empty($_POST)) {
             <caption>ご利用情報</caption>
               <tr>
                 <td>ご利用時間</td>
-                <td><?= htmlspecialchars($date .' / '. $start_time . ' 〜 ' . $fin_time); ?></td>
+                <?php if($use_style == 'day_use'): ?>
+                  <td><?= htmlspecialchars($date .' / '. $start_time . ' 〜 ' . $fin_time); ?></td>
+                <?php else: ?>
+                  <td><?= htmlspecialchars($date .' / 深夜に利用（翌朝まで）'); ?></td>
+                <?php endif; ?>
               </tr>
               <tr>
                 <td>利用人数</td>
@@ -115,7 +126,11 @@ if(!empty($_POST)) {
               </tr>
               <tr>
                 <td>料金</td>
-                <td><?= htmlspecialchars($price); ?> 円</td>
+                <?php if($use_style == 'day_use'): ?>
+                  <td><?= htmlspecialchars($price); ?> 円</td>
+                <?php else: ?>
+                  <td><?= htmlspecialchars($night_price); ?> 円</td>
+                <?php endif; ?>
               </tr>
               <tr>
                 <td>利用者</td>
