@@ -1,12 +1,18 @@
 <?php
   session_start();
   require('dbconnect.php');
+
+  if(isset($_SESSION['id'])) {
+    header('Location: top.php?from=login');
+    exit();
+  }
+
   $errors = [];
 
   $ref = $_SERVER['HTTP_REFERER'];
   $email = '';
 
-  var_dump($ref);
+
   if(!empty($_POST)) {
     $email = $_POST['input_email'];
     $password = $_POST['input_password'];
@@ -32,14 +38,10 @@
           $referer = strstr($referer,'?',true);
         }
 
-        // ログインに一度失敗するとリファラーにログインが残って挙動が変なので、トップに返す
-        if($referer == 'login') {
-          header("Location: top.php" . "?from=login");
-          exit();
-        } else {
-          header("Location: $referer" . "?from=login");
-          exit();
-        }
+
+        // ログイン前のページへ遷移
+        header("Location: $referer" . "?from=login");
+        exit();
 
         } else {
           $errors['signin'] = 'failed';

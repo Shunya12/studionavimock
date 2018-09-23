@@ -84,7 +84,8 @@ if(urlParam) {
   }
 
 
-  // パラメータによってメッセ〜jを出し分ける
+
+  // パラメータによってメッセージを出し分ける
   if (paramArray.from == 'logout') {
     $(document).ready(function(){
       $('.fls-msg-none').append('<div>ログアウトしました</div>').addClass('fls-msg').removeClass('fls-msg-none').fadeOut(5000, "swing");
@@ -92,6 +93,14 @@ if(urlParam) {
   } else if(paramArray.from == 'login') {
     $(document).ready(function(){
       $('.fls-msg-none').append('<div>ログインしました</div>').addClass('fls-msg').removeClass('fls-msg-none').fadeOut(5000, "swing");
+    });
+  } else if(paramArray.from == 'changed') {
+    $(document).ready(function(){
+      $('.fls-msg-none').append('<div>会員情報を更新しました</div>').addClass('fls-msg').removeClass('fls-msg-none').fadeOut(5000, "swing");
+    });
+  } else if(paramArray.from == 'pwchanged') {
+    $(document).ready(function(){
+      $('.fls-msg-none').append('<div>パスワードを更新しました</div>').addClass('fls-msg').removeClass('fls-msg-none').fadeOut(5000, "swing");
     });
   }
 }
