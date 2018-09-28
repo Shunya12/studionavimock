@@ -40,7 +40,7 @@
             </div> -->
             <div class="form-group">
               <label for="message-text" class="col-form-label">利用人数</label>
-              <input type="number" class="form-control" name="number_of_users" id="number-of-users" placeholder="例）10" min="1" max="100">
+              <input type="number" class="form-control" name="number_of_users" id="number-of-users" placeholder="例）10" min="0" max="100">
               <small class="form-text text-muted">必ず半角の数字で入力してください</small>
             </div>
             <div class="form-group">

@@ -85,7 +85,7 @@
 
 // 本文中の分はrowに対して３つのカードを表示する（カードが３件表示されるたびに新たなrowを挿入する）
       $cards = [];
-      $i = 0;
+      $counter = 0;
 
       while(1) {
         $rec = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -97,7 +97,8 @@
       }
   }
 
-
+// 画像がなかった時の値
+  $no_img = 'no_image.jpg';
 
 
 ?>
@@ -119,28 +120,52 @@
     include('header.php');
    ?>
 
- <section class="main-body">
+
+<div class="container-fluid">
+  <section class="main-body">
     <?php foreach($cards as $card): ?>
-        <?php $counter = $i; ?>
         <?php if($counter % 3 == 0): ?>
-          <?= '<div class="card-deck">' ?>
+          <?= '<div class="card-deck row">' ?>
         <?php endif; ?>
-            <a href="detail.php?std=<?= $card['studio_id'] . '&rm=' . $card['room_id']; ?>" class="card result-a">
-              <img class="card-img-top" src="img/IMG_2105.jpg">
-              <div class="card-body">
-                <h5 class="card-title"><?= $card['studio_name'] . ' ' . $card['room_name']; ?></h5>
-                <p class="card-text">テキスト テキスト テキスト テキスト テキスト テキスト テキスト テキスト テキスト テキスト </p>
-              </div>
-              <div class="card-footer">
-                <small class="text-muted">このスタジオの詳細を見る</small>
-              </div>
-            </a>
+            <div class="col-md-4 card-padding-zero">
+              <a href="detail.php?std=<?= $card['studio_id'] . '&rm=' . $card['room_id']; ?>" class="card result-a">
+                <img class="card-img-top" src="img/<?= $img = $card['room_img'] == '' ? $no_img : $card['room_img']; ?>
+                ">
+                <div class="card-body">
+                  <h5 class="card-title"><?= $card['studio_name'] . ' ' . $card['room_name']; ?></h5>
+                  <table>
+                    <tr>
+                      <td class="card-text">広さ： </td>
+                      <td class="card-text"><?= $card['long_wide']; ?></td>
+                    </tr>
+                    <tr>
+                      <td class="card-text">値段： </td>
+                      <td class="card-text"><?= $card['price_per_hour']; ?> 円 / h</td>
+                    </tr>
+                    <tr>
+                      <td class="card-text">エリア：</td>
+                      <td class="card-text"><?= $card['area_name']; ?></td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="card-footer">
+                  <small class="text-muted">このスタジオの詳細を見る</small>
+                </div>
+              </a>
+            </div>
         <?php if($counter % 3 == 2): ?>
           <?= '</div>' ?>
         <?php endif; ?>
-        <?php $i++; ?>
+        <?php $counter++; ?>
     <?php endforeach; ?>
+    <?php if(empty($cards)): ?>
+        <div id="no-result">
+          <p>検索条件に合致するスタジオがありませんでした。</p>
+          <p><a href="top.php" class="body-link">- TOPに戻る -</a></p>
+        </div>
+    <?php endif; ?>
   </section>
+</div>
 
    <?php
     include('footer.php');

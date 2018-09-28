@@ -22,6 +22,8 @@ $use_style = $_SESSION['reserve']['use_style'];
 $price_per_hour = $_SESSION['reserve']['price_per_hour'];
 $night_price = $_SESSION['reserve']['night_price'];
 $room_id = $_SESSION['reserve']['room_id'];
+$room_img = $_SESSION['reserve']['room_img'];
+$no_img = 'no_image.jpg';
 
 
 // 利用時間を生成
@@ -103,7 +105,7 @@ if(!empty($_POST)) {
           </div>
         </div>
         <div class="col-md-4 col-xs-12">
-          <img src="img/IMG_2105.jpg" class="studio-img">
+          <img src="img/<?= $room_img == '' ? $no_img : $room_img; ?>" class="studio-img">
         </div>
         <div class="col-md-8 col-xs-12">
           <h1><?= htmlspecialchars($studio_name); ?></h1>

@@ -1,6 +1,10 @@
 <?php
   session_start();
   $errors = [];
+  if(isset($_SESSION['id'])) {
+    header('Location: top.php');
+    exit();
+  }
 
 // 戻るボタンで戻って来た際の処理
   if(isset($_GET['action']) && $_GET['action'] == 'rewrite') {

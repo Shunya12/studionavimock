@@ -19,7 +19,6 @@
   }
 
 
-
   // 戻るボタンで戻って来た際の処理
   if(isset($_GET['action']) && $_GET['action'] == 'rewrite') {
     $_POST['date'] = $_SESSION['reserve']['date'];
@@ -33,24 +32,29 @@
   }
 
 
-  if(!empty($_POST)) {
+  if (!empty($_POST)) {
     $date = $_POST['date'];
     $start = $_POST['start_time'];
     $fin = $_POST['fin_time'];
     $users = $_POST['users'];
     $user_name = $_POST['user_name'];
     $user_email = $_POST['user_email'];
-    if($date == '') {
+    if ($date == '') {
       $errors['date'] = 'blank';
     }
-    if($users == '') {
+    if ($users == '') {
       $errors['users'] = 'blank';
     }
-    if($user_name == '') {
+    if ($user_name == '') {
       $errors['user_name'] = 'blank';
     }
-    if($user_email == '') {
+    if ($user_email == '') {
       $errors['user_email'] = 'blank';
+    }
+    $start_datetime = strtotime($date . ' ' . $start);
+    $fin_datetime = strtotime($date . ' ' . $fin);
+    if (!isset($_POST['night_use']) && $start_datetime >= $fin_datetime) {
+      $errors['datetime'] = 'incorrect';
     }
 
     // エラーがなかった場合確認ページへ遷移
@@ -90,8 +94,6 @@ while($start <= $end) {
   $select_times[] = $time;
   $start = strtotime('+30 minute' , $start);
 }
-
-
 
 
 ?>
@@ -155,6 +157,9 @@ while($start <= $end) {
                   <?php endforeach; ?>
                 </select>
               </div>
+              <?php if(isset($errors['datetime']) && $errors['datetime'] == 'incorrect'): ?>
+                <p class="error_message">開始時間が終了時間よりも遅いか同じ時刻になっています</p>
+              <?php endif; ?>
             </div>
             <div class="form-group">
               <label>利用人数</label>
@@ -183,15 +188,15 @@ while($start <= $end) {
             <?php else: ?>
               <div class="form-group">
               <label>名前</label>
-              <input type="text" name="user_name" class="form-control"  placeholder="例）鈴木　太郎" value="<?= $user_name; ?>">
-                <?php if(isset($errors['user-name']) && $errors['user-name'] == 'blank'): ?>
+              <input type="text" name="user_name" class="form-control"  placeholder="例）鈴木　太郎" value="<?= $user_name ?>">
+                <?php if(isset($errors['user_name']) && $errors['user_name'] == 'blank'): ?>
                   <?php echo '<p class="error_message">名前を入力してください</p>'; ?>
                 <?php endif; ?>
               </div>
               <div class="form-group">
                 <label>メールアドレス</label>
-                <input type="email" name="user_email" class="form-control" placeholder="例）dancedance@studionavi.com" value="<?= $user_email; ?>">
-                <?php if(isset($errors['user-email']) && $errors['user-email'] == 'blank'): ?>
+                <input type="email" name="user_email" class="form-control" placeholder="例）dancedance@studionavi.com" value="<?= $user_email ?>">
+                <?php if(isset($errors['user_email']) && $errors['user_email'] == 'blank'): ?>
                   <?php echo '<p class="error_message">メールアドレスを入力してください</p>'; ?>
                 <?php endif; ?>
                 <small class="form-text text-muted">予約の確認メールをお送りするので間違えないようにお気をつけください。</small>

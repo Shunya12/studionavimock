@@ -10,24 +10,16 @@ function initMap() {
 
 
   var marker = [];
-  var data = [
-  {
-    name: '新宿マイスタジオ',
-    lat: 35.694554,
-    lng: 139.695937,
-    desc: 'このスタジオは常にチキンナゲットのニオイがします'
-  }, {
-    name: 'エンスタジオ 渋谷スクランブル',
-    lat: 35.6609577,
-    lng: 139.6961136,
-    desc: 'このスタジオにはワキガの相撲取りがよく来ます'
-  }, {
-    name: '新宿ソニズ',
-    lat: 35.697028,
-    lng: 139.694416,
-    desc: 'このスタジオはスイッチを押すとファミマに入った時の音がでます'
+
+
+  var data = [];
+
+  for (var i = 0; i < studioData.length; i++) {
+    data.push(studioData[i]);
+    studioData[i].lat = Number(studioData[i].lat);
+    studioData[i].lng = Number(studioData[i].lng);
   }
-  ];
+
 
   var infowindow = [];
 
@@ -54,7 +46,32 @@ function initMap() {
 
 
   for(var i = 0; i < data.length; i++){
-    var content = '<div class="info"><h2><a href="detail.php" class="result-a">' + data[i].name + '</h2><p>' + data[i].desc + '</a></p></div>';
+    var content =
+    '<div class="info"><h2>' +
+    data[i].studio_name +
+    '</h2><div class="img-center"><img src="img/';
+    if(data[i].rooms[0].room_img == '') {
+      content += 'no_image.jpg';
+    } else {
+      content += data[i].rooms[0].room_img;
+    }
+    content +=
+    '"></div>';
+    for(var j = 0; j < data[i].rooms.length; j++){
+      content +=
+      '<a class="body-link" href="detail.php?std=' +
+      data[i].studio_id +
+      '&rm=' +
+      data[i].rooms[j].room_id +
+      '"><div><h3>' +
+      data[i].rooms[j].room_name +
+      '</h3><table><tr><td>値段： </td><td>' +
+      data[i].rooms[j].price_per_hour +
+      '円/h</td></tr><tr><td>広さ: </td><td>' +
+      data[i].rooms[j].long_wide +
+      '</td></tr></table></div></a>';
+    };
+
     infowindow[i] = new google.maps.InfoWindow({
       content: content,
       maxWidth: 200

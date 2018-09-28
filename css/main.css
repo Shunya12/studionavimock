@@ -46,6 +46,14 @@ a:hover{
   width: 30%;
 }
 
+.centered {
+  text-align: center;
+}
+
+.centered > a > button {
+  margin: 10px 20px;
+}
+
 /* ヘッダー部分 */
 .fls-msg-none {
   display: none;
@@ -54,7 +62,6 @@ a:hover{
 .fls-msg {
   display: block;
 }
-
 
 
 
@@ -141,6 +148,23 @@ footer a {
   color: #343a40;
 }
 
+.card-padding-zero {
+  padding: 0px!important;
+}
+
+#no-result {
+  color: #343a40;
+  background-color: #fff;
+  width: auto;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+#no-result > p {
+  margin: 20px auto;
+
+}
 
 /* detail */
 
@@ -154,7 +178,7 @@ footer a {
 }
 
 .detail-info {
-  margin: 50px 0;
+  margin: 40px 0;
 }
 
 .detail-info caption {
@@ -168,6 +192,7 @@ footer a {
 .studio-img {
   width: 100%;
   height: auto;
+  margin-bottom: 10px;
 }
 
 .reserve-action {
@@ -197,6 +222,12 @@ footer a {
 .reserve-action a:hover{
   background-color: #343a40;
   color: #fff;
+}
+
+
+.reviews-link {
+  margin: 0 auto!important;
+  margin-bottom: 50px!important;
 }
 
 
@@ -304,9 +335,6 @@ footer a {
   color: #fff!important;
 }
 
-.centered {
-  text-align: center;
-}
 
 .mypage-h2 {
   font-size: 1.3em;
@@ -319,15 +347,45 @@ footer a {
   height: 600px;
 }
 
+.info {
+  margin: 10px;
+}
+
 .info h2 {
 margin: 0 0 .5em;
+font-size: 1.6em;
+}
+
+.info h3 {
 font-size: 1.4em;
+margin-top: 5px;
+}
+
+.info div:nth-of-type(n+3) {
+  border-top: 1px solid #ddd;
+  padding-top: 5px;
 }
 
 .info p {
 margin: 0;
 font-size: 1em;
 }
+
+.info img {
+  width: 170px;
+  height: auto;
+  margin: 5px 0 10px 0;
+}
+
+.info .img-center {
+  text-align: center;
+}
+
+.info table {
+  margin: 5px;
+}
+
+
 
 /* 会員登録確認画面 */
 
@@ -348,3 +406,38 @@ font-size: 1em;
   margin-bottom: 0;
   padding-bottom: 0;
 }
+
+/* 口コミ投稿 */
+.review-post textarea {
+  margin-bottom: 10px;
+}
+
+
+/* 口コミ一覧 */
+.review-list {
+  background-color: #eee;
+  margin: 0 10px 30px 10px;
+  padding: 15px 5px;
+  border-radius: 5px;
+}
+
+.relative {
+  position: relative;
+}
+
+.review-list img {
+  width: 90px;
+  background-color: #fff;
+}
+
+.created-time {
+  position: absolute;
+  bottom: -32px;
+  right: 0;
+  color: #999;
+}
+
+.to-login button {
+  margin: 20px 10px;
+}
+
