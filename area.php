@@ -2,6 +2,7 @@
 session_start();
 require('dbconnect.php');
 $studio_recs = [];
+echo "git練習";
 
 // スタジオ情報とルーム情報を取得
 $sql = 'SELECT * FROM `rooms` AS `r` LEFT JOIN `studios` AS `s` ON `r`.`studio_id` = `s`.`studio_id`';
